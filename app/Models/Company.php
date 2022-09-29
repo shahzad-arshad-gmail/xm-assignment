@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['email', 'symbol_id', 'start_date', 'end_date'];
 }

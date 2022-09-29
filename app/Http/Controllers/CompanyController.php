@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -35,12 +36,19 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'email'=>'required',
+
+        $validator = Validator::make($request->all(), [
+            'email'=>'required|email|unique:companies',
             'symbol_id'=>'required',
             'start_date'=>'required',
             'end_date'=>'required'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->messages()
+            ]);
+        }
 
         try{
             Company::create($request->post());
@@ -49,7 +57,7 @@ class CompanyController extends Controller
             ]);
         }catch(\Exception $e){
             return response()->json([
-                'message'=>'Something goes wrong while creating a company!!'
+                'message'=>$e->getMessage()
             ],500);
         }
     }

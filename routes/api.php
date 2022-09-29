@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('symbols', [SymbolController::class, 'index'])->name('symbols');
-Route::post('save', [CompanyController::class, 'store'])->name('company');
+Route::post('company', [CompanyController::class, 'store'])->name('company');
 
 
 
