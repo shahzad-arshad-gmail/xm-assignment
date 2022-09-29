@@ -35,7 +35,23 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email'=>'required',
+            'symbol_id'=>'required',
+            'start_date'=>'required',
+            'end_date'=>'required'
+        ]);
+
+        try{
+            Company::create($request->post());
+            return response()->json([
+                'message'=>'Company Created Successfully!!'
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'message'=>'Something goes wrong while creating a company!!'
+            ],500);
+        }
     }
 
     /**

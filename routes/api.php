@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SymbolController;
+use App\Http\Controllers\CompanyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('symbols', [SymbolController::class, 'index'])->name('symbols');
+Route::post('save', [CompanyController::class, 'store'])->name('company');
 
 
 
